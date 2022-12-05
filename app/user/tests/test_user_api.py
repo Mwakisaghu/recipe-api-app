@@ -1,3 +1,5 @@
+# flake8: noqa
+
 """
 Tests for the user api
 """
@@ -72,7 +74,7 @@ class PublicUserApiTests(TestCase):
         """Test generates token for valid credentials"""
         user_details = {
             'name': 'Test Name',
-            'email':'test@example.com',
+            'email': 'test@example.com',
             'password': 'test-user-password123',
         }
         create_user(**user_details)
@@ -129,8 +131,8 @@ class PrivateUserApiTests(TestCase):
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         self.assertEqual(res.data, {
-            'name':self.user.name,
-            'email':self.user.email,
+            'name': self.user.name,
+            'email': self.user.email,
         })
 
     def test_post_me_not_allowed(self):
