@@ -19,15 +19,17 @@ from recipe.serializers import (
 
 RECIPES_URL = reverse('recipe:recipe-list')
 
+
 def detail_url(recipe_id):
     """Create and return a recipe detail url"""
     return reverse('recipe:recipe-detail', args=[recipe_id])
+
 
 def create_recipe(user, **params):
     """create and return a sample recipe"""
     defaults = {
       'title': 'Sample recipe title',
-      'time_minutes' : 22,
+      'time_minutes': 22,
       'price': Decimal('5.25'),
       'description': 'Sample description',
       'link': 'http://example.com/recipe.pdf',
@@ -41,6 +43,7 @@ def create_recipe(user, **params):
 def create_user(**params):
     """Create and return a new user"""
     return get_user_model().objects.create_user(**params)
+
 
 class PublicRecipeAPITests(TestCase):
     """Tests unauthenticated API requests"""
@@ -77,7 +80,7 @@ class PrivateRecipeApiTests(TestCase):
 
     def test_recipe_list_limited_to_user(self):
         """Test list of recipes is limited to authenticated user"""
-        other_user = create_user(email='other@example.com',password='test123')
+        other_user = create_user(email='other@example.com', password='test123')
         create_recipe(user=other_user)
         create_recipe(user=self.user)
 
@@ -179,7 +182,6 @@ class PrivateRecipeApiTests(TestCase):
         self.assertEqual(res.status_code, status.HTTP_204_NO_CONTENT)
         self.assertFalse(Recipe.objects.filter(id=recipe.id).exists())
 
-
     def test_recipe_other_users_error(self):
         """Test trying to delete other users recipe gives an error"""
         new_user = create_user(email='user2@example.com', password='test123')
@@ -190,5 +192,3 @@ class PrivateRecipeApiTests(TestCase):
 
         self.assertEqual(res.status_code, status.HTTP_404_NOT_FOUND)
         self.assertTrue(Recipe.objects.filter(id=recipe.id).exists())
-
-

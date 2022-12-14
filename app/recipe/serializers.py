@@ -15,7 +15,6 @@ class RecipeSerializer(serializers.ModelSerializer):
         read_only_fields = ['id']
 
 
-
 class RecipeDetailSerializer(RecipeSerializer):
     """Serializer for recipe detail view"""
 
