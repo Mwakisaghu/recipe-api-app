@@ -23,6 +23,10 @@ class RecipeViewSet(viewsets.ModelViewSet):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
 
+    def get_queryset(self):
+        """Retrieve recipes for authenticated user"""
+        return self.queryset.filter(user=self.request.user).order_by('-id')
+
     def get_serializer_class(self):
         """Return the serializer class for requests"""
         if self.action == 'list':
@@ -44,8 +48,8 @@ class BaseRecipeAttrViewSet( mixins.DestroyModelMixin,
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        """Retrieve recipes for authenticated user"""
-        return self.queryset.filter(user=self.request.user).order_by('-id')
+        """Filter queryset to authenticated users"""
+        return self.queryset.filter(user=self.request.user).order_by('-name')
 
 
 class TagViewSet(BaseRecipeAttrViewSet):
