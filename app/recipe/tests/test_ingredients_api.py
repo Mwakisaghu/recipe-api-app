@@ -112,7 +112,7 @@ class PrivateIngredientsApiTest(TestCase):
         )
         recipe.ingredients.add(in1)
 
-        res = self.client.get(INGREDIENTS_URL, {'assigned_only: 1'})
+        res = self.client.get(INGREDIENTS_URL, {'assigned_only': 1})
 
         s1 = IngredientSerializer(in1)
         s2 = IngredientSerializer(in2)
@@ -133,7 +133,6 @@ class PrivateIngredientsApiTest(TestCase):
             title='Herb Eggs',
             time_minutes=20,
             price=Decimal('4.00'),
-            user=self.user,
             user=self.user,
         )
         recipe1.ingredients.add(ing)
