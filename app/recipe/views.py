@@ -42,8 +42,6 @@ from recipe import serializers
         ]
     )
 )
-
-
 class RecipeViewSet(viewsets.ModelViewSet):
     """View for manage recipe APIs"""
     serializer_class = serializers.RecipeDetailSerializer
@@ -68,7 +66,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
             queryset = queryset.filter(ingredients__id__in=ingredient_ids)
 
         return queryset.filter(
-            user = self.request.user
+            user=self.request.user
         ).order_by('-id').distinct()
 
     def get_serializer_class(self):
@@ -95,6 +93,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
             return Response(serializer.data, status=status.HTTP_200_OK)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 @extend_schema_view(
     list=extend_schema(
